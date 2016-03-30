@@ -1,13 +1,29 @@
 @extends('layouts.master')
 
+@section('title', 'Album : ' . $album->title)
+
 @section('main_content')
-<h1>View Album</h1>
+
+<style>
+    .photo {
+        display: inline-block;
+        width: 300px;
+        margin: 5px;
+        background-color: #999;
+    }
+</style>
+
+<h1>Album: {{ $album->title }}</h1>
+<p>{{ $album->description }}</p>
     @foreach($photos as $photo)
     <div class="photo">
-        <div>Title: {{ $photo->title }}</div>
-        <div>Description: {{ $photo->description }}</div>
+        <h2>Title: {{ $photo->title }}</h2>
         <div>
-            <img src="{{ $photo->getThumbnailURL() }}" alt="{{ $photo->title }}">            
+    <a href="{{ url('photo/' . $photo->id) }}"><img src="{{ $photo->getThumbnailURL() }}" alt="{{ $photo->title }}"></a>
+
+        Description: {{ $photo->description }}</div>
+        <div>
+        
         </div>
 
     </div>

@@ -12,7 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return redirect('album');
 });
 
 Route::get('album', 'AlbumController@showAllAlbums');
@@ -24,7 +25,7 @@ Route::get('album/{id}', 'AlbumController@showAlbum');
 // Route::get('album', 'AlbumController@showAllAlbums');
 
 
-Route::get('photo/{id}', 'PhotoController@showImage');
+Route::get('photo/{id}', 'PhotoController@showPhoto');
 
 Route::get('image-store/{image_spec}', 'ImageGenController@genImage');
 

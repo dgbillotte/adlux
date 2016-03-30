@@ -6,21 +6,17 @@ use Illuminate\Http\Request;
 use Imagick;
 use App\Http\Requests;
 
+const THUMB_SIZE = 200;
+const MED_SIZE = 600;
+const LARGE_SIZE = 1200;
+
 class ImageGenController extends Controller {
+
     public function genImage($image_spec) {
-        
-        // take apart the parameter
-        $pattern = '/^(.*)(_([^_]+))(\.[^.]+)$/';
-        if(! preg_match($pattern, $image_spec, $matches)) {
+
+        if(! $parts = self::blowupSpec($image_spec)) {
             abort(404);
         }
-
-        $name = $matches[1];
-        $size = $matches[3];
-        $ext = $matches[4];
-        $filename = $name . $ext;
-
-        $parts = self::blowupSpec($image_spec);
         $filename = $parts[0];
         $x = $parts[1];
         $y = $parts[2];
@@ -72,11 +68,11 @@ class ImageGenController extends Controller {
             // NOTE: !!!! this is begging to be DOS'd!!!!
             $x = intval($matches[1]);
         } elseif($size_str === 'thumb') {
-            $x = 100;
+            $x = THUMB_SIZE;
         } elseif($size_str === 'med') {
-            $x = 500;
+            $x = MED_SIZE;
         } elseif($size_str === 'large') {
-            $x = 1000;
+            $x = LARGE_SIZE;
         } else {
             return false;
         }

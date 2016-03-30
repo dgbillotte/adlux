@@ -6,20 +6,27 @@ use Illuminate\Database\Eloquent\Model;
 
 class Photo extends Model {
     protected $table = 'photo';
+    protected $fillable = ['title', 'description', 'height', 'width', 'filename'];
 
     public function album() {
         return $this->belongsTo('App\Album');
     }
 
+
+
     public function getThumbnailURL() {
-        return '/knife1_thumb.jpg';
+        return '/image-store/' . preg_replace('/\.([^.]+)$/', "_thumb.$1", $this->filename);
     }
 
     public function getMedURL() {
-        return '/knife1_med.jpg';
+        return '/image-store/' . preg_replace('/\.([^.]+)$/', "_med.$1", $this->filename);
+    }
+
+    public function getLargeURL() {
+        return '/image-store/' . preg_replace('/\.([^.]+)$/', "_large.$1", $this->filename);
     }
 
     public function getFullsizeURL() {
-        return '/knife1.jpg';
+        return '/image-store/' . $this->filename;
     }
 }
