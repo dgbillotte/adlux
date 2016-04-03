@@ -39,8 +39,14 @@
         <h1>Header stuff here</h1>
         <nav>
             <a href="{{ url('album') }}">All Albums</a> |
-            <a href="{{ url('album/new') }}">New Album</a> |
-            <a href="{{ url('config') }}">Config</a>
+            @if(Auth::check())
+                <a href="{{ url('album/create') }}">New Album</a> |
+                <a href="{{ url('config') }}">Config</a>
+                <span>user: {{ Auth::user()->email }}</span>
+                <a href="{{ url('logout') }}">Logout</a>
+            @else
+                <a href="{{ url('login') }}">Login</a>
+            @endif
 
             </nav>
     </header>

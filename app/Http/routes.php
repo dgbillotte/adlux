@@ -16,8 +16,7 @@ Route::get('/', function () {
     return redirect('album');
 });
 
-Route::get('album', 'AlbumController@showAllAlbums');
-Route::get('album/{id}', 'AlbumController@showAlbum');
+// Route::get('album/create', 'AlbumController@newAlbum');
 
 
 // Route::get('album', 'AlbumController@showAllAlbums');
@@ -25,13 +24,35 @@ Route::get('album/{id}', 'AlbumController@showAlbum');
 // Route::get('album', 'AlbumController@showAllAlbums');
 
 
-Route::get('photo/{id}', 'PhotoController@showPhoto');
 
-Route::get('image-store/{image_spec}', 'ImageGenController@genImage');
 
 
 Route::group(['middleware' => 'web'], function () {
+    // I *think* this sets up the routes for login & logout
     Route::auth();
 
-    Route::get('/home', 'HomeController@index');
+    // Route::get('/home', 'HomeController@index');
+    
+
+    Route::get('album', 'AlbumController@showAllAlbums');
+    Route::get('album/{id}', 'AlbumController@showAlbum');
+
+    Route::get('photo/{id}', 'PhotoController@showPhoto');
+    Route::get('image-store/{image_spec}', 'ImageGenController@genImage');
+
+
+    /*
+     * These routes require authentication and https
+     * TODO: add https requirement
+     */
+    Route::group(['middleware' => 'auth'], function () {
+
+        Route::get('album/create', 'AlbumController@newAlbum');
+        Route::post('album/create', 'AlbumController@createAlbum');
+        Route::get('config/all', 'ConfigController@allValues');
+        Route::get('config/get/{name}', 'ConfigController@getValue')
+        Route::post('config/update/{name}/{value}', 'ConfigController@updateValue');
+
+    });
+
 });

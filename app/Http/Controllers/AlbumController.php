@@ -18,4 +18,8 @@ class AlbumController extends Controller {
         // dd($album->photos);
         return view('view_album', ['album' => $album, 'photos' => $album->photos]);
     }
+
+    public function newAlbum() {
+        return view('new_album');
+    }
 }
