@@ -1,27 +1,31 @@
-# Laravel PHP Framework
+# AdLux Personal Photo Album Tool
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+AdLux is a personal photo album and gallery tool that I built to my needs/wants. At the begining they were:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+- have a single repository for all of my photos
+- photos should be easy to use/reference in blog posts and other
+- easy gallerys for blog posts
+- automate image sizing
+- make gallery and photo layout easy to style for specific uses
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+## Organization
+The **Album** is the primary organization container. To me, it represents raw photos from a given time or for a specific purpose. Every photo belongs to exactly one album.
 
-## Official Documentation
+The **Gallery** allows you to group subsets of albums or photos from different albums together. When creating a gallery you can link to specific resolutions or variations of the original photos. Further, galleries will be able to be individually styled. Gallery is yet to be built
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+**Photo** is the most granular level and currently allows for a title and description. To be added: specifiy which resolutions to make available, photo meta data, add watermark, crop, etc.
 
-## Contributing
+## Upload
+Photos can be uploaded either in the web interface, or en masse via scp, ftp, etc. For photos uploaded via the file system, there is a console command to import photos:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+```bash
+$ php artisan adlux:import ALBUM_ID FILES
+```
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+AdLux is built in php on v5.2 of the [laravel framework](http://laravel.com/docs).
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+
+
+
