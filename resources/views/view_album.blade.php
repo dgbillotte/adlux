@@ -28,4 +28,9 @@
 
     </div>
     @endforeach
+
+    <div>
+        <a href="{{ url('album/' . $album->id . '/add_photos') }}">Add Photos</a>
+    </div>
+
 @endsection

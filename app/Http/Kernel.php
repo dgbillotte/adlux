@@ -31,29 +31,13 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
         ],
 
-        // 'secureauth' => [
-        //     \App\Http\Middleware\EncryptCookies::class,
-        //     \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-        //     \Illuminate\Session\Middleware\StartSession::class,
-        //     \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-        //     \App\Http\Middleware\VerifyCsrfToken::class,
-        // ],
-
-
-        'secureauth_web' => [
-            \App\Http\Middleware\EncryptCookies::class,
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \App\Http\Middleware\VerifyCsrfToken::class,
-
-            \App\Http\Middleware\Authenticate::class,
-            \App\Http\Middleware\ForceHttps::class            
-        ],
-
-
         'api' => [
             'throttle:60,1',
+        ],
+
+        'secureauth' => [
+            \App\Http\Middleware\Authenticate::class,
+            \App\Http\Middleware\ForceHttps::class  
         ],
     ];
 

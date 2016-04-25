@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 
 use App\Http\Requests;
 use App\Album;
@@ -23,12 +24,17 @@ class AlbumController extends Controller {
         return view('new_album');
     }
 
-    public function createAlbum() {
+    public function createAlbum(Request $request) {
         $album = new Album();
 
         // set the new album fields
+        $album->title = $request->input('title', 'default title');
+        $album->description = $request->input('description', 'default description');
 
-        $album->save();
+        // dd([$request->all(), $album]);
+
+        $user = Auth::user();
+        $user->albums()->save($album);
 
         return redirect('album/' . $album->id);
     }
@@ -48,18 +54,26 @@ class AlbumController extends Controller {
         return redirect('album/' . $album->id);
     }
 
-    public function addPhotoForm($id) {
+    public function addPhotosForm($id) {
         $album = Album::find($id);
 
-        return view('add_photo', ['album' => $album]);
+        return view('add_photos', ['album' => $album]);
     }
 
-    public function addPhoto($id) {
+    public function addPhotos(Request $request, $id) {
         $album = Album::find($id);
 
         // add the photo stuff here...
+        foreach($request->allFiles() as $name=>$file) {
 
-        return redirect('album/' . $id);
+            if($file->isValid()) {
+                $file->move('foobar', $file->getClientOriginalName());
+            }
+
+        }
+
+
+        return "yeah!";
     }
 
 }

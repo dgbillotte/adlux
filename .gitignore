@@ -6,3 +6,5 @@ Homestead.json
 .env
 .DS_Store
 public/image-store
+*.sublime-project
+*.sublime-workspace

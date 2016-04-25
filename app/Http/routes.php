@@ -28,29 +28,41 @@ Route::group(['middleware' => 'web'], function () {
     // photo pages
     Route::get('photo/{id}', 'PhotoController@showPhoto');
     Route::get('image-store/{image_spec}', 'ImageGenController@genImage');
+
+
+    /*
+     * These routes require authentication and https
+     */
+    Route::group(['middleware' => 'secureauth'], function () {
+        // album mutators
+        Route::get('album/create', 'AlbumController@newAlbum');
+        Route::post('album/create', 'AlbumController@createAlbum');
+        Route::get('album/{id}/edit', 'AlbumController@editAlbum');
+        Route::post('album/{id}/edit', 'AlbumController@updateAlbum');
+
+        // photo mutators
+        Route::get('album/{id}/add_photos', 'AlbumController@addPhotosForm');
+        Route::post('album/{id}/add_photos', 'AlbumController@addPhotos');
+        Route::get('photo/{id}/edit', 'PhotoController@editPhoto');
+        Route::post('phoot/{id}/edit', 'PhotoController@updatePhoto');
+
+        // configuration
+        Route::get('config/all', 'ConfigController@allValues');
+        Route::get('config/get/{name}', 'ConfigController@getValue');
+        Route::post('config/update/{name}/{value}', 'ConfigController@updateValue');
+    });
+
 });
 
 
-/*
- * These routes require authentication and https
- */
-Route::group(['middleware' => 'secureauth_web'], function () {
-    // album mutators
-    Route::get('album/create', 'AlbumController@newAlbum');
-    Route::post('album/create', 'AlbumController@createAlbum');
-    Route::get('album/{id}/edit', 'AlbumController@editAlbum');
-    Route::post('album/{id}/edit', 'AlbumController@updateAlbum');
+Route::group(['middleware' => 'api'], function() {
 
-    // photo mutators
-    Route::get('album/{id}/add_photo', 'AlbumController@addPhotoForm');
-    Route::post('album/{id}/add_photo', 'AlbumController@addPhoto');
-    Route::get('photo/{id}/edit', 'PhotoController@editPhoto');
-    Route::post('phoot/{id}/edit', 'PhotoController@updatePhoto');
 
-    // configuration
-    Route::get('config/all', 'ConfigController@allValues');
-    Route::get('config/get/{name}', 'ConfigController@getValue');
-    Route::post('config/update/{name}/{value}', 'ConfigController@updateValue');
+    /*
+     * These routes require authentication and https
+     */
+    Route::group(['middleware' => 'secureauth'], function () {
 
+    });
 
 });
